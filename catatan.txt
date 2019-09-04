@@ -1,0 +1,14 @@
+const mapStateToProps (diaakan mengambil
+state yang ada di redux kemudian dipindahkan ke properti)
+
+local storage untuk back up data redux
+
+AGAR REFRESH TIDAK TER LOG OUT:
+Ketikga login dari react akan mengimrim keredux dan local storage, setelah di refresh local storage akan memunculkan data yang 
+disimpan sehinga tidka terlogut
+
+Kalau ubah object ke string json.stringify
+kalo ubah string ke object json, parse
+
+setState memicu untuk merender ulang
+

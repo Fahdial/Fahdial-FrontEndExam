@@ -1,0 +1,133 @@
+import React, { Component } from 'react'
+import axios from 'axios'
+
+class ManageProducts extends Component {
+
+    state = {
+        products: [{}, {}, {}]
+    }
+
+    // KETIGA
+    // Akan Running setelah function render() dijalankan
+    componentDidMount() {
+        // Ambil (GET) semua products data dari database
+        axios.get(
+            'http://localhost:2018/products'
+
+        ).then((res) => {
+            // Di taruh di state.data
+            this.setState({products: res.data})
+
+        }).catch((err)=>{
+            console.log(err)
+
+        })
+    }
+
+    // Input data
+    onAddProduct = () => {
+        // Ambil data dari text input
+        let data_name = this.name.value
+        let data_description = this.desc.value
+        let data_price = this.price.value
+        let data_picture = this.pict.value
+
+        // Menaruh (POST) data ke database (JSON)
+        axios.post(
+            'http://localhost:2018/products',
+            {
+                name: data_name,
+                description: data_description,
+                price: data_price,
+                picture: data_picture
+            }
+        ).then((res) => {
+            alert('Berhasil')
+        }).catch((err) => {
+            console.log(err)
+            alert('Gagal, coba buka console')
+        })
+    }
+
+    // Rendering List
+    renderList = () => {
+        // Map data object menjadi list
+        // products = [{}, {}, {}]
+        // product = {name, description, price, picture}
+        // hasilrender = [<tr>, <tr>, <tr>]
+        let hasilRender = this.state.products.map((product)=>{
+            return (
+                <tr>
+                    <td>{product.name}</td>
+                    <td>{product.description}</td>
+                    <td>{product.price}</td>
+                    <td>
+                        <img style={{width: '45px'}} src={product.picture}/>
+                    </td>
+                </tr>
+            )
+        })
+
+        return hasilRender
+    }
+
+    // KEDUA
+    render() {
+        return (
+            <div className='container'>
+                {/* RENDERING LIST DATA */}
+                <h1 className='display-4 text-center'>List Product</h1>
+                <table className='table text-center'>
+                    <thead>
+                        <tr>
+                            <th>NAME</th>
+                            <th>DESC</th>
+                            <th>PRICE</th>
+                            <th>PICTURE</th>
+                            <th>ACTION</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {/* Render pertama kali akan kosong */}
+                        {/* Baru akan muncul ketika sudah mengambil data di componentdidmount */}
+                        {this.renderList()}
+                    </tbody>
+                </table>
+
+
+                {/* INPUT DATA */}
+                <h1 className='display-4 text-center'>Input Product</h1>
+                <table className='table text-center'>
+                    <thead>
+                        <tr>
+                            <th>NAME</th>
+                            <th>DESC</th>
+                            <th>PRICE</th>
+                            <th>PICTURE</th>
+                            <th>ACTION</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><input ref={(input) => {this.name = input}} className='form-control' type='text'/></td>
+                            <td><input ref={(input) => {this.desc = input}} className='form-control' type='text'/></td>
+                            <td><input ref={(input) => {this.price = input}} className='form-control' type='text'/></td>
+                            <td><input ref={(input) => {this.pict = input}} className='form-control' type='text'/></td>
+                            <td>
+                                <button
+                                    className='btn btn-outline-success'
+                                    onClick={this.onAddProduct}
+                                >Add</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        )
+    }
+}
+
+export default ManageProducts
+
+// setiap kita running this.setState()
+// ini akan men-trigger function render() untuk running ulang (re-render)

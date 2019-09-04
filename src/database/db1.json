@@ -1,0 +1,95 @@
+{
+  "users": [
+    {
+      "username": "rochafi",
+      "email": "rochafi@gmail.com",
+      "password": "satuduatiga",
+      "id": 1
+    },
+    {
+      "username": "One",
+      "email": "one@gmail.com",
+      "password": "satuduatiga",
+      "id": 2
+    },
+    {
+      "username": "Two",
+      "email": "two@gmail.com",
+      "password": "satuduatiga",
+      "id": 3
+    },
+    {
+      "username": "R",
+      "email": "r@gmail.com",
+      "password": "satuduatiga",
+      "id": 4
+    },
+    {
+      "username": "jamban",
+      "email": "jamban@gmail.com",
+      "password": "jamban",
+      "id": 5
+    },
+    {
+      "username": "jamban1",
+      "email": "jamban1@gmail.com",
+      "password": "jamban1",
+      "id": 6
+    },
+    {
+      "username": "jamban12",
+      "email": "jamban12@gmail.com",
+      "password": "jamban12",
+      "id": 7
+    },
+    {
+      "username": "jamban13",
+      "email": "jamban13@gmail.com",
+      "password": "haha",
+      "id": 8
+    },
+    {
+      "username": "biji",
+      "email": "biji@gmail",
+      "password": "biji",
+      "id": 9
+    }
+  ],
+  "products": [
+    {
+      "name": "One",
+      "description": "Lorem ipsum sit amet",
+      "price": "140000",
+      "picture": "https://www.jakartanotebook.com/images/products/99/63/19075/2/kaos-polos-katun-pria-o-neck-size-m-81402b-or-t-shirt-black-24.jpg",
+      "id": 1
+    },
+    {
+      "name": "Product Two",
+      "description": "Lorem Ipsum Two",
+      "price": "87000",
+      "picture": "https://www.jakartanotebook.com/images/products/99/63/19075/2/kaos-polos-katun-pria-o-neck-size-m-81402b-or-t-shirt-black-24.jpg",
+      "id": 2
+    },
+    {
+      "name": "Product Three",
+      "description": "Lorem Ipsum Three",
+      "price": "100000",
+      "picture": "https://www.jakartanotebook.com/images/products/99/63/19075/2/kaos-polos-katun-pria-o-neck-size-m-81402b-or-t-shirt-black-24.jpg",
+      "id": 3
+    },
+    {
+      "name": "Product Four",
+      "description": "Lorem ipsum four",
+      "price": "87000",
+      "picture": "https://www.jakartanotebook.com/images/products/99/63/19075/2/kaos-polos-katun-pria-o-neck-size-m-81402b-or-t-shirt-black-24.jpg",
+      "id": 4
+    },
+    {
+      "name": "Product Five",
+      "description": "Desc Five",
+      "price": "50000",
+      "picture": "https://www.jakartanotebook.com/images/products/99/63/19075/2/kaos-polos-katun-pria-o-neck-size-m-81402b-or-t-shirt-black-24.jpg",
+      "id": 5
+    }
+  ]
+}

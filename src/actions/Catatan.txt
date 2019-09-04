@@ -1,0 +1,15 @@
+Cara Membuat LogOut:
+1. index.js (dalam actions) dan logout
+
+Cara mengakses connect dipanggil dengna this.props
+
+1   fungsi yang ada asyncronus (axios/then) yang di return dari action creator adalah sebuah promise,
+    bukan sebuat object. agar kiitame return sebagai objct, kita gunakan middleware
+
+2   middleware bisa menerima sebuah function atau object dan akan dibedakan.
+    maka setelah masuk kedalam middleware. apabila berupa function maka dia akan di runnin berulang
+    dan akan berhenti agar terkirim ke reducer dengan menggunakan (variable/parameter) dispatch agar menjadi object
+    dan dapat dikirm ke reducer dan di simpadn didalam state. contohnya ada pada index.jsx
+
+3   
+
