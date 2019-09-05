@@ -8,6 +8,8 @@ import Home from './Home'
 import Header from './Header'
 import ManageProducts from './ManageProducts'
 import ProductDetail from './ProductDetail'
+import Cart from './Cart'
+
 
 // Action Creator
 const keepLogin = (objUser) => {
@@ -51,6 +53,7 @@ class App extends Component {
                     <Route path='/login' component={Login} />
                     <Route path='/manageproducts' component={ManageProducts} />
                     <Route path='/productdetail/:id' component={ProductDetail}/>
+                    <Route path="/cart" component={Cart}/>
                 </BrowserRouter>
             )
         } else {

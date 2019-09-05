@@ -1,40 +1,101 @@
 import React, { Component } from 'react'
 import axios from 'axios'
+import {connect} from 'react-redux'
 
 class ProductDetail extends Component {
 
-    state = {
+    state  = {
         product: null
     }
 
-    componentDidMount() {
-        axios.get(
-            `http://localhost:2018/products/${this.props.match.params.id}` 
+    toIDR = new Intl.NumberFormat(['ban', 'id'])
 
-        ).then(res => {
-            // res.data = {id, name, price, description, picture}
-            this.setState({product: res.data})
-
-        })
-    }
+    addToCart = () => {
+        let {id, name, price, picture, description} = this.state.product
+        let userId = this.props.id
+        let qty = parseInt(this.qty.value)
+        
+            if (!userId) {
+                alert('Silahkan Login terlebih dahulu')
+            } else if (qty) {
+                axios.get(
+                    `http://localhost:2018/Cart`,
+                    {
+                        params:
+                            {
+                                name, userId
+                            }
+                    }
+                ).then(res => {
+                    let flag = 0
+                    console.log(res.data)
+                    for (let i = 0; i < res.data.length; i++) {
+                        if (res.data[i].userId == userId) {
+                            flag = 1
+                        }
+                    }
     
+                    if (res.data.length !== 0) {
+                        let tambah = res.data[0].qty
+                        axios.patch(
+                            `http://localhost:2018/Cart/${res.data[0].id}`,
+                            {
+                                qty: qty + tambah
+                            }).then(res => {
+                                flag = 1
+                                alert(`Quantity telah diupdate menjadi ${qty + tambah}`)
+                            })
+                    }
+    
+                    if (flag == 0) {
+                        axios.post(
+                            `http://localhost:2018/Cart`,
+                            {
+                                    idCart: id,
+                                    userId,
+                                    name,
+                                    price,
+                                    qty,
+                                    description,
+                                    picture
+                            }).then(res => alert('Barang ditambahkan ke dalam cart'))
+                
+                    }  else {
+                        console.log('Tidak menambahkan item baru')
+                    }
+                } ) 
+            } else {
+                alert('Masukan angka')
+            }
+    }
+
+    componentDidMount() {
+        this.getData()
+    }
+
+    getData = () => {
+        axios.get(
+            'http://localhost:2018/products/' + this.props.match.params.id
+        ).then((res) => {this.setState({product: res.data})})
+    }
 
     render() {
-        // Ketika product bukan null
-        if(this.state.product){
+        if (this.state.product) {
+        let {name, price, picture, description} = this.state.product
+
             return (
-                <div className='card col-5 my-5 mx-auto'>
+                <div className='card col-4 mx-auto'>
                     <div className='card-header mt-2'>
-                        <h2>{this.state.product.name}</h2>
+                        <h2 className='text-center'>{name}</h2>
                     </div>
-                    <div className='card-body'>
-                        <img className='card-img-top' src={this.state.product.picture}/>
-                        <h3>Name: {this.state.product.name}</h3>
-                        <p>Description : {this.state.product.description}</p>
-                        <p>Harga : Rp.{this.state.product.price}</p>
+                    <div className='card-body mb-5'>
+                        <img className='card-img-top' src={picture} alt='Gambar'/>
+                        <h3>{this.state.product.name}</h3>
+                        <p className='card-text'>{description}</p>
+                        <p>Harga: Rp. {this.toIDR.format(price)}</p>
                     </div>
-                    <form><input className='form-control' type='text'/></form>
-                    <button className='btn btn-outline-secondary mt-2'>Add To Cart</button>
+                    <form><input className='form-control mb-2' type='number' ref={(input) => {this.qty = input}}/></form>
+                    <button className='btn btn-Primary mb-2' onClick={this.addToCart}>Add to Cart</button>
                 </div>
             )
         } else {
@@ -43,15 +104,10 @@ class ProductDetail extends Component {
     }
 }
 
-export default ProductDetail
+const mapStateToProps = (state) => {
+    return {
+      id: state.auth.id
+    }
+}
 
-
-// false
-// '', 0, null, undefined
-
-/*
-- state untuk menyimpan hasil setiap kali ada axious 
-- .then kalau data berhasil didapatkan kita taro di state
-- this.state state dibuah productnya dari res.data
-- kalo ragu coba di console log
-*/
+export default connect(mapStateToProps) (ProductDetail)

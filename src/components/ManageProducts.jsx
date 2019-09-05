@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import axios from 'axios'
 import {connect} from 'react-redux'
+import {Redirect} from 'react-router-dom'
+import Swal from 'sweetalert2'
 
 class ManageProducts extends Component {
 
@@ -58,7 +60,14 @@ class ManageProducts extends Component {
                 picture: data_picture
             }
         ).then((res) => {
-            alert('Berhasil Input')
+            Swal.fire({
+                position: 'center',
+                type: 'success',
+                title: 'Data Berhasil di input',
+                showConfirmButton: false,
+                timer: 1500
+              })
+            
 
             // Mengambil data
             this.getData()
@@ -100,13 +109,35 @@ class ManageProducts extends Component {
             }
         ).then((res) => {
             // Get data ulang
-            
             this.getData()
         })
         .catch((err) => {
             console.log(err)
         })
     }
+
+    // Delete Data
+    onDeleteClick = (idProduct) => {
+        // axios.patch
+        // http://localhost:2018/products/(id product)
+        axios.delete(
+            `http://localhost:2018/products/${idProduct}`,
+            {
+                name: this.state.selectedName,
+                description: this.state.selectedDesc,
+                price: this.state.selectedPrice,
+                picture: this.state.selectedPict
+            }
+        ).then((res) => {
+            // Get data ulang
+            this.getData()
+        })
+        .catch((err) => {
+            console.log(err)
+        })
+    }
+
+
 
     // Rendering List
     renderList = () => {
@@ -132,6 +163,12 @@ class ManageProducts extends Component {
                                 className='btn btn-outline-warning'
                                 onClick={() => {this.onEditClick(product.id, product)}}>
                                 Edit
+                            </button>
+                            
+                            <button 
+                                className='btn btn-outline-danger'
+                                onClick={() => {this.onDeleteClick(product.id, product)}}>
+                                Delete
                             </button>
                         </td>
                     </tr>
@@ -188,61 +225,76 @@ class ManageProducts extends Component {
 
     // KEDUA
     render() {
-        return (
-            <div className='container'>
-                {/* RENDERING LIST DATA */}
-                <h1 className='display-4 text-center'>List Product</h1>
-                <table className='table text-center'>
-                    <thead>
-                        <tr>
-                            <th>NAME</th>
-                            <th>DESC</th>
-                            <th>PRICE</th>
-                            <th>PICTURE</th>
-                            <th>ACTION</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {/* Render pertama kali akan kosong */}
-                        {/* Baru akan muncul ketika sudah mengambil data di componentdidmount */}
-                        {this.renderList()}
-                    </tbody>
-                </table>
+        // Jika sudah login ,tampilkan manage product
+        if(this.props.user_name){
+            return (
+                <div className='container'>
+                    {/* RENDERING LIST DATA */}
+                    <h1 className='display-4 text-center'>List Product</h1>
+                    <table className='table text-center'>
+                        <thead>
+                            <tr>
+                                <th>NAME</th>
+                                <th>DESC</th>
+                                <th>PRICE</th>
+                                <th>PICTURE</th>
+                                <th>ACTION</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {/* Render pertama kali akan kosong */}
+                            {/* Baru akan muncul ketika sudah mengambil data di componentdidmount */}
+                            {this.renderList()}
+                        </tbody>
+                    </table>
+    
+    
+                    {/* INPUT DATA */}
+                    <h1 className='display-4 text-center'>Input Product</h1>
+                    <table className='table text-center'>
+                        <thead>
+                            <tr>
+                                <th>NAME</th>
+                                <th>DESC</th>
+                                <th>PRICE</th>
+                                <th>PICTURE</th>
+                                <th>ACTION</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><input ref={(input) => {this.name = input}} className='form-control' type='text'/></td>
+                                <td><input ref={(input) => {this.desc = input}} className='form-control' type='text'/></td>
+                                <td><input ref={(input) => {this.price = input}} className='form-control' type='text'/></td>
+                                <td><input ref={(input) => {this.pict = input}} className='form-control' type='text'/></td>
+                                <td>
+                                    <button
+                                        className='btn btn-outline-success'
+                                        onClick={this.onAddProduct}
+                                    >Add</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            )
+        } else {
+        // Jika belum login, redirect ke home
+            return <Redirect to='/'/>
 
+        }
 
-                {/* INPUT DATA */}
-                <h1 className='display-4 text-center'>Input Product</h1>
-                <table className='table text-center'>
-                    <thead>
-                        <tr>
-                            <th>NAME</th>
-                            <th>DESC</th>
-                            <th>PRICE</th>
-                            <th>PICTURE</th>
-                            <th>ACTION</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td><input ref={(input) => {this.name = input}} className='form-control' type='text'/></td>
-                            <td><input ref={(input) => {this.desc = input}} className='form-control' type='text'/></td>
-                            <td><input ref={(input) => {this.price = input}} className='form-control' type='text'/></td>
-                            <td><input ref={(input) => {this.pict = input}} className='form-control' type='text'/></td>
-                            <td>
-                                <button
-                                    className='btn btn-outline-success'
-                                    onClick={this.onAddProduct}
-                                >Add</button>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        )
     }
 }
 
-export default connect()(ManageProducts)
+// diakses menggunakan 'this.props'
+const mapStateToProps = (state) => {
+    return {
+        user_name : state.auth.username
+    }
+}
+
+export default connect(mapStateToProps)(ManageProducts)
 
 
 

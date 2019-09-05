@@ -53,43 +53,84 @@
       "email": "biji@gmail",
       "password": "biji",
       "id": 9
+    },
+    {
+      "username": "kadal",
+      "email": "kadal@gmail.com",
+      "password": "kadal",
+      "id": 10
     }
   ],
   "products": [
     {
-      "name": "One",
+      "name": "Hoodie Premium",
       "description": "Lorem ipsum sit amet",
       "price": "140000",
       "picture": "https://www.jakartanotebook.com/images/products/99/63/19075/2/kaos-polos-katun-pria-o-neck-size-m-81402b-or-t-shirt-black-24.jpg",
       "id": 1
     },
     {
-      "name": "Product Two",
+      "name": "Off White t-shir",
       "description": "Lorem Ipsum Two",
-      "price": "87000",
+      "price": "87001",
       "picture": "https://www.jakartanotebook.com/images/products/99/63/19075/2/kaos-polos-katun-pria-o-neck-size-m-81402b-or-t-shirt-black-24.jpg",
       "id": 2
     },
     {
-      "name": "Product Three",
+      "name": "Hoodie Standard",
       "description": "Lorem Ipsum Three",
       "price": "100000",
       "picture": "https://www.jakartanotebook.com/images/products/99/63/19075/2/kaos-polos-katun-pria-o-neck-size-m-81402b-or-t-shirt-black-24.jpg",
       "id": 3
     },
     {
-      "name": "Product Four",
-      "description": "Lorem ipsum four",
-      "price": "87000",
-      "picture": "https://www.jakartanotebook.com/images/products/99/63/19075/2/kaos-polos-katun-pria-o-neck-size-m-81402b-or-t-shirt-black-24.jpg",
+      "name": "a",
+      "description": "a",
+      "price": "12",
+      "picture": "a",
       "id": 4
+    }
+  ],
+  "Cart": [
+    {
+      "idCart": 1,
+      "userId": 5,
+      "name": "One",
+      "price": "140000",
+      "qty": 2,
+      "description": "Lorem ipsum sit amet",
+      "picture": "https://www.jakartanotebook.com/images/products/99/63/19075/2/kaos-polos-katun-pria-o-neck-size-m-81402b-or-t-shirt-black-24.jpg",
+      "id": 1
     },
     {
-      "name": "Product Five",
-      "description": "Desc Five",
-      "price": "50000",
+      "idCart": 1,
+      "userId": 5,
+      "name": "Hoodie Premium",
+      "price": "140000",
+      "qty": 5,
+      "description": "Lorem ipsum sit amet",
       "picture": "https://www.jakartanotebook.com/images/products/99/63/19075/2/kaos-polos-katun-pria-o-neck-size-m-81402b-or-t-shirt-black-24.jpg",
-      "id": 5
+      "id": 2
+    },
+    {
+      "idCart": 4,
+      "userId": 5,
+      "name": "a",
+      "price": "12",
+      "qty": 2,
+      "description": "a",
+      "picture": "a",
+      "id": 3
+    },
+    {
+      "idCart": 3,
+      "userId": 5,
+      "name": "Hoodie Standard",
+      "price": "100000",
+      "qty": 2,
+      "description": "Lorem Ipsum Three",
+      "picture": "https://www.jakartanotebook.com/images/products/99/63/19075/2/kaos-polos-katun-pria-o-neck-size-m-81402b-or-t-shirt-black-24.jpg",
+      "id": 4
     }
   ]
 }
